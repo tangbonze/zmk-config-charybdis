@@ -49,12 +49,12 @@
 
         Mouse {
             bindings = <
-&none        &none         &none         &none      &none           &none        &none      &none            &none      &none          &none          &none
-&none        &none         &none         &none      &none           &none        &none      &none            &none      &none          &none          &none
-&none        &kp LEFT_WIN  &kp LEFT_ALT  &kp LCTRL  &kp LEFT_SHIFT  &none        &none      &kp RIGHT_SHIFT  &kp RCTRL  &kp RIGHT_ALT  &kp RIGHT_WIN  &none
-&bootloader  &trans        &none         &none      &none           &none        &none      &none            &none      &none          &trans         &bootloader
-                                         &mkp RCLK  &mkp LCLK       &mkp MCLK    &mkp MCLK  &mkp LCLK
-                                                    &none           &mkp RCLK    &mkp RCLK
+&none        &none         &none             &none          &none           &none            &none              &none            &none          &none              &none          &none
+&none        &none         &none             &mmm MOVE_UP   &none           &mmm SCROLL_UP   &mmm SCROLL_UP     &none            &mmm MOVE_UP   &none              &none          &none
+&none        &none         &mmm MOVE_LEFT    &mmm MOVE_DOWN &mmm MOVE_RIGHT &mmm SCROLL_DOWN &mmm SCROLL_DOWN   &mmm MOVE_LEFT   &mmm MOVE_DOWN &mmm MOVE_RIGHT    &none          &none
+&bootloader  &trans        &none             &none          &none           &none            &none              &none            &none          &none              &trans         &bootloader
+                                             &mkp RCLK      &mkp LCLK       &mkp MCLK        &mkp MCLK          &mkp LCLK
+                                                            &none           &mkp RCLK        &mkp RCLK
             >;
         };
     };
