@@ -50,8 +50,8 @@
         Mouse {
             bindings = <
 &none        &none         &none             &none          &none           &none            &none              &none            &none          &none              &none          &none
-&none        &none         &none             &mmv MOVE_UP   &none           &mmh SCROLL_UP   &mmh SCROLL_UP     &none            &mmv MOVE_UP   &none              &none          &none
-&none        &none         &mmv MOVE_LEFT    &mmv MOVE_DOWN &mmv MOVE_RIGHT &mmh SCROLL_DOWN &mmh SCROLL_DOWN   &mmv MOVE_LEFT   &mmv MOVE_DOWN &mmv MOVE_RIGHT    &none          &none
+&none        &none         &none             &mmv MOVE_UP   &none           &mwh SCROLL_UP   &mwh SCROLL_UP     &none            &mmv MOVE_UP   &none              &none          &none
+&none        &none         &mmv MOVE_LEFT    &mmv MOVE_DOWN &mmv MOVE_RIGHT &mwh SCROLL_DOWN &mwh SCROLL_DOWN   &mmv MOVE_LEFT   &mmv MOVE_DOWN &mmv MOVE_RIGHT    &none          &none
 &bootloader  &trans        &none             &none          &none           &none            &none              &none            &none          &none              &trans         &bootloader
                                              &mkp RCLK      &mkp LCLK       &mkp MCLK        &mkp MCLK          &mkp LCLK
                                                             &none           &mkp RCLK        &mkp RCLK
