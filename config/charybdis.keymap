@@ -35,6 +35,11 @@
             bindings = <&mo 4>;
             key-positions = <31 32 33>;
         };
+
+        studio_unlock {
+            bindings = <&studio_unlock>;
+            key-positions = <51 52 53>;
+        };
     };
 
     behaviors {
@@ -126,6 +131,22 @@
                      &none  &none  &none    &none  &none
                             &none  &none    &none
             >;
+        };
+
+        extra1 {
+            status = "reserved";
+        };
+
+        extra2 {
+            status = "reserved";
+        };
+
+        extra3 {
+            status = "reserved";
+        };
+
+        extra4 {
+            status = "reserved";
         };
     };
 };
