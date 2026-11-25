@@ -4,7 +4,8 @@
 / {
     chosen {
         zmk,kscan = &kscan0;
-    }; 
+        zmk,physical-layout = &charybdis_4x6_layout;
+    };
 
     vbatt: vbatt {
 	compatible = "zmk,battery-nrf-vddh";
@@ -28,7 +29,7 @@
 	
     kscan0: kscan {
         compatible = "zmk,kscan-gpio-matrix";
-        label = "KSCAN";
+        wakeup-source;
 
         diode-direction = "row2col";
 		row-gpios

@@ -1,19 +1,62 @@
 manifest:
+  version: 1.2
+  defaults:
+    remote: cormoran
+    revision: main
   remotes:
-    - name: zmkfirmware
-      url-base: https://github.com/zmkfirmware
-    - name: inorichi
-      url-base: https://github.com/inorichi
+    - name: cormoran
+      url-base: https://github.com/cormoran
     - name: tangbonze
       url-base: https://github.com/tangbonze
   projects:
     - name: zmk
-      remote: zmkfirmware
-      revision: v0.3.0
+      remote: cormoran
+      revision: main+dya
+      clone-depth: 1
       import: app/west.yml
-    - name: zmk-pmw3610-driver
-      remote: inorichi
-      revision: main
+    - name: zephyr
+      remote: cormoran
+      revision: v4.1.0+zmk-fixes+nrf-half-duplex-uart
+      clone-depth: 1
+      import:
+        name-blocklist:
+          - ci-tools
+          - hal_altera
+          - hal_cypress
+          - hal_infineon
+          - hal_microchip
+          - hal_nxp
+          - hal_openisa
+          - hal_xtensa
+          - hal_st
+          - hal_ti
+          - loramac-node
+          - mcuboot
+          - mcumgr
+          - net-tools
+          - openthread
+          - edtt
+          - trusted-firmware-m
+    # Trackball sensor driver with DYA Studio RPC & runtime settings
+    - name: zmk-driver-pmw3610-with-custom-studio-rpc
+    # DYA Studio modules
+    - name: zmk-module-runtime-input-processor
+    - name: zmk-module-ble-management
+    - name: zmk-module-settings-rpc
+    - name: zmk-module-battery-history
+    - name: zmk-feature-custom-settings
+    - name: zmk-feature-os-detection
+    - name: zmk-feature-default-layer
+      revision: codex/custom-rpc-rewrite
+      import: true
+    - name: zmk-feature-module-physical-layout
+    - name: zmk-feature-device-info
+    - name: zmk-feature-watchdog
+    - name: zmk-feature-runtime-macro
+      import: true
+    - name: zmk-feature-runtime-combo
+      import: true
+    # Physical matrix tester (USB Raw HID)
     - name: zmk-matrix-tester
       remote: tangbonze
       revision: main

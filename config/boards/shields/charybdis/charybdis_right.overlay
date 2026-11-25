@@ -3,8 +3,9 @@
  *
  * SPDX-License-Identifier: MIT
  */
- 
+
 #include "charybdis.dtsi"
+#include <dt-bindings/input/input-event-codes.h>
 
 &default_transform {
 	col-offset = <6>;
@@ -50,19 +51,64 @@
 
     trackball: trackball@0 {
         status = "okay";
-        compatible = "pixart,pmw3610";
+        compatible = "cormoran,pmw3610";
         reg = <0>;
         spi-max-frequency = <2000000>;
         irq-gpios = <&gpio0 6 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
-        scroll-layers = <4>;
-	snipe-layers = <5>;
+        cpi = <800>;
+        evt-type = <INPUT_EV_REL>;
+        x-input-code = <INPUT_REL_X>;
+        y-input-code = <INPUT_REL_Y>;
+        settings-id = "ball";
     };
 };
 
 / {
-  trackball_listener {
-    compatible = "zmk,input-listener";
-    device = <&trackball>;
+    trackball_listener: trackball_listener {
+        compatible = "zmk,input-listener";
+        device = <&trackball>;
 
-  };
+        input-processors = <&mouse_runtime_input_processor &scroll_runtime_input_processor>;
+
+        scroller {
+            layers = <4>;
+            input-processors = <&scroll_runtime_input_processor>;
+        };
+
+        snipe {
+            layers = <5>;
+            input-processors = <&zip_xy_scaler 1 2 &mouse_runtime_input_processor>;
+        };
+    };
+
+    trackball_layout: trackball_layout {
+        compatible = "cormoran,physical-layout-trackball";
+        display-name = "Trackball";
+        size = <140>;
+        x = <600>;
+        y = <380>;
+
+        linked-device-identifiers = "mouse", "scroll";
+        linked-subsystems = "cormoran_rip", "cormoran_rip";
+    };
+};
+
+// Must come after charybdis.dtsi: runtime-input-processor.dtsi pulls in
+// dt-bindings/zmk/keys.h, which redefines RC() and would clash with RC(row, col).
+#include <input/processors.dtsi>
+#include <input/processors/runtime-input-processor.dtsi>
+
+// Trackball runtime input processors (DYA Studio "Trackball" tab)
+&mouse_runtime_input_processor {
+    temp-layer = <3>;
+    temp-layer-activation-delay-ms = <200>;
+    temp-layer-deactivation-delay-ms = <400>;
+};
+
+&scroll_runtime_input_processor {
+    active-layers = <BIT(4)>;
+    x-codes = <INPUT_REL_X>;
+    y-codes = <INPUT_REL_Y>;
+    xy-to-scroll-enabled;
+    axis-snap-threshold = <100>;
 };
