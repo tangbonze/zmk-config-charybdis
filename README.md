@@ -61,24 +61,28 @@ DYA Studio 和 ZMK KeyTester 也只会连上右手。
 
 ## Keymap
 
-键位定义位于 [`config/charybdis.keymap`](config/charybdis.keymap)，物理矩阵与布局描述位于
-[`config/boards/shields/charybdis/charybdis.dtsi`](config/boards/shields/charybdis/charybdis.dtsi)
-与 [`config/charybdis.json`](config/charybdis.json)。
+以下键位图由 [keymap-drawer](https://github.com/caksoylar/keymap-drawer) 根据
+[`config/charybdis.keymap`](config/charybdis.keymap) 与 [`config/charybdis.json`](config/charybdis.json)
+自动生成，并由 [`.github/workflows/keymap_drawer.yml`](.github/workflows/keymap_drawer.yml)
+在修改键位后自动更新与按层拆分。
 
-### 默认层（Layer 0 `Base`）
+**Base（默认层）**
 
-```
-左半                                              右半
-ESC   1    2    3    4    5                       6    7    8    9    0    BSPC
-TAB   Q    W    E    R    T                       Y    U    I    O    P    \
-CTRL  A    S    D    F    G                       H    J    K    L    ;    '
-SHFT  Z*   X*   C    V    B                       N    M    ,    .    /*   RSHFT
-           LGUI SPC  Scroll                       ENT  BSPC
-                LALT L1                           L2
-```
+![Base 默认层](keymap-drawer/layers/Base.svg)
 
-- `Z*` / `/*`：`&lt 3 Z` 与 `&lt 3 SLASH`（短按输入字符 / 长按进入 `Mouse` 层）
-- `X*`：`&lt 5 X`（短按输入 `X` / 长按进入 `Snipe` 慢速精准层）
+**Layer 1（符号 / 左手方向层）**
+
+![Layer 1 符号与方向层](keymap-drawer/layers/1.svg)
+
+**Layer 2（F 键 / 媒体 / 右手修饰层）**
+
+![Layer 2 F 键与媒体层](keymap-drawer/layers/2.svg)
+
+**Mouse（鼠标 / 蓝牙 / Bootloader 层）**（[`Scroll`](keymap-drawer/layers/Scroll.svg) 与 [`Snipe`](keymap-drawer/layers/Snipe.svg) 层仅用于切换轨迹球滚轮/降速处理链，其余键位为 `&none`，此处不单列）
+
+![Mouse 鼠标与蓝牙层](keymap-drawer/layers/Mouse.svg)
+
+完整图（含全部 6 层）：[`keymap-drawer/charybdis.svg`](keymap-drawer/charybdis.svg)
 
 ## 图层设计
 
@@ -248,8 +252,16 @@ config/
     charybdis_right.overlay 右手列引脚、PMW3610 SPI0 引脚与 runtime input processor 管线
     charybdis_right.conf 右手配置（PMW3610、ZMK/DYA Studio 全套 RPC、电量历史、休眠）
     charybdis.conf       预留 shield 级配置
+keymap-drawer/
+  charybdis.yaml         keymap-drawer 解析出的中间键位数据
+  charybdis.svg          完整 6 层键位总图
+  layers/                按层拆分的独立 SVG（供 README 嵌入展示）
+tools/
+  split_keymap_svg.py    将 charybdis.svg 按层拆分为 keymap-drawer/layers/*.svg
+keymap_drawer.config.yaml keymap-drawer 样式、图标与键名映射配置
 .github/workflows/
   main.yml               调用 cormoran/zmk 构建工作流编译左右手与 settings_reset 固件
+  keymap_drawer.yml      键位变更后自动重绘并拆分 keymap SVG
 build.yaml               构建矩阵（charybdis_left / charybdis_right + studio-rpc-usb-uart / settings_reset）
 ```
 
